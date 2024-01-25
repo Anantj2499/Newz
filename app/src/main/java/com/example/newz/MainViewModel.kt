@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val appEntryUseCases: AppEntryUseCases
+    appEntryUseCases: AppEntryUseCases
 ):ViewModel(){
      var splashCondition by mutableStateOf(true)
         private set
@@ -22,10 +22,10 @@ class MainViewModel @Inject constructor(
         private set
     init {
         appEntryUseCases.readAppEntry().onEach {shouldStartFromHome->
-            if (shouldStartFromHome) {
-                startDestination = Route.NewsNavGraph.route
+            startDestination = if (shouldStartFromHome) {
+                Route.NewsNavGraph.route
             } else {
-                startDestination = Route.AppStartNavGraph.route
+                Route.AppStartNavGraph.route
             }
             delay(300)
             splashCondition = false

@@ -43,7 +43,7 @@ fun ArticlesList(
     articles: LazyPagingItems<Article>,
     onClick: (Article) -> Unit
 ) {
-    val handlePagingResult = HandlePagingResult(articles = articles)
+    val handlePagingResult = handlePagingResult(articles = articles)
     if (handlePagingResult){
         LazyColumn(
             modifier = modifier.fillMaxSize(),
@@ -63,7 +63,7 @@ fun ArticlesList(
 }
 
 @Composable
-fun HandlePagingResult(
+fun handlePagingResult(
     articles: LazyPagingItems<Article>,
 ) :Boolean {
     val loadState = articles.loadState

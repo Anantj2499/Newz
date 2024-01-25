@@ -10,8 +10,6 @@ import com.example.newz.data.remote.SearchNewsPagingSource
 import com.example.newz.domain.model.Article
 import com.example.newz.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onEach
-
 class NewsRepositoryImpl(
     private val newsApi: NewsApi,
     private val newsDao: NewsDao

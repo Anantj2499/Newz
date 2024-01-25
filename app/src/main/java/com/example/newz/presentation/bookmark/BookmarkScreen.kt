@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.example.newz.R
 import com.example.newz.domain.model.Article
 import com.example.newz.presentation.common.ArticlesList
-import com.example.newz.presentation.navgraph.Route
 
 @Composable
 fun BookmarkScreen(

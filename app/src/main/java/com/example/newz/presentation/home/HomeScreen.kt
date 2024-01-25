@@ -26,8 +26,6 @@ import com.example.newz.R
 import com.example.newz.domain.model.Article
 import com.example.newz.presentation.common.ArticlesList
 import com.example.newz.presentation.common.SearchBar
-import com.example.newz.presentation.navgraph.Route
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
@@ -56,7 +54,7 @@ fun HomeScreen(
             contentDescription = null,
             modifier = Modifier
                 .width(150.dp)
-                .height(30.dp)
+                .height(50.dp)
                 .padding(horizontal = 24.dp)
         )
         Spacer(modifier =Modifier.height(24.dp))
