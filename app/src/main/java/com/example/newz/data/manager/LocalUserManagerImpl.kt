@@ -16,7 +16,7 @@ class LocalUserManagerImpl(
     private val context: Context
 ): LocalUserManager {
 
-    override suspend fun saveAppEntery() {
+    override suspend fun saveAppEntry() {
         context.dataStore.edit { preferences ->
             preferences[PreferencesKeys.APP_ENTRY] = true
         }

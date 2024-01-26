@@ -1,6 +1,5 @@
 package com.example.newz.presentation.common
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,27 +13,29 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.newz.domain.model.Article
 
-@SuppressLint("SuspiciousIndentation")
 @Composable
 fun ArticlesList(
     modifier: Modifier = Modifier,
     articles: List<Article>,
     onClick: (Article) -> Unit
 ) {
-        LazyColumn(
-            modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-            contentPadding = PaddingValues(all = 6.dp)
-        ) {
-            items(articles.size) { index ->
-                val article = articles[index]
-                    ArticleCard(
-                        article = article,
-                        onClick = { onClick(article) },
-                    )
-
-            }
+    if (articles.isEmpty()) {
+        EmptyScreen()
+        return
+    }
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+        contentPadding = PaddingValues(all = 6.dp)
+    ) {
+        items(articles.size) { index ->
+            val article = articles[index]
+            ArticleCard(
+                article = article,
+                onClick = { onClick(article) },
+            )
         }
+    }
 }
 
 @Composable
@@ -44,7 +45,7 @@ fun ArticlesList(
     onClick: (Article) -> Unit
 ) {
     val handlePagingResult = handlePagingResult(articles = articles)
-    if (handlePagingResult){
+    if (handlePagingResult) {
         LazyColumn(
             modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -65,18 +66,21 @@ fun ArticlesList(
 @Composable
 fun handlePagingResult(
     articles: LazyPagingItems<Article>,
-) :Boolean {
+): Boolean {
     val loadState = articles.loadState
     val error = when {
         loadState.refresh is LoadState.Error -> {
             loadState.refresh as LoadState.Error
         }
+
         loadState.append is LoadState.Error -> {
             loadState.append as LoadState.Error
         }
+
         loadState.prepend is LoadState.Error -> {
             loadState.prepend as LoadState.Error
         }
+
         else -> null
     }
     return when {
@@ -84,7 +88,13 @@ fun handlePagingResult(
             ShimmerEffect()
             false
         }
+
         error != null -> {
+            EmptyScreen(error)
+            false
+        }
+
+        articles.itemCount == 0 -> {
             EmptyScreen()
             false
         }
