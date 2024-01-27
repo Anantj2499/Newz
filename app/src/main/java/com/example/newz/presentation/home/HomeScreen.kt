@@ -87,7 +87,7 @@ fun HomeScreen(
                         tween(
                             durationMillis = (state.maxScrollValue-state.scrollValue)*50000/state.maxScrollValue,
                             easing = LinearEasing,
-                            delayMillis = 1500
+                            delayMillis = 2500
                         )
                     )
                 )

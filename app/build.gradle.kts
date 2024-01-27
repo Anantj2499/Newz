@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.newz"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -76,7 +76,7 @@ dependencies {
     implementation("androidx.paging:paging-compose:3.2.1")
     //Room
     implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-common:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     testImplementation("androidx.room:room-testing:2.6.1")
@@ -93,7 +93,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.6")
     //hilts
     implementation("com.google.dagger:hilt-android:2.50")
-    kapt ("com.google.dagger:hilt-compiler:2.48")
+    ksp ("com.google.dagger:hilt-compiler:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
 
@@ -110,7 +110,4 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.5.4")
     //Accompanist
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.20.0")
-}
-kapt {
-    correctErrorTypes=true
 }
