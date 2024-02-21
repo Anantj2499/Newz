@@ -90,10 +90,10 @@ dependencies {
     //Splash Api
     implementation("androidx.core:core-splashscreen:1.0.1")
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.6")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
     //hilts
     implementation("com.google.dagger:hilt-android:2.50")
-    ksp ("com.google.dagger:hilt-compiler:2.48")
+    ksp ("com.google.dagger:hilt-compiler:2.50")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
 
@@ -107,7 +107,7 @@ dependencies {
     //DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     //Compose Foundation
-    implementation("androidx.compose.foundation:foundation:1.5.4")
+    implementation("androidx.compose.foundation:foundation:1.6.1")
     //Accompanist
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.20.0")
 }

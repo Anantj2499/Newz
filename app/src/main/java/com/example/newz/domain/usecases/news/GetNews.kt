@@ -5,5 +5,5 @@ import com.example.newz.domain.repository.NewsRepository
 class GetNews(
     private val newsRepository: NewsRepository
 ) {
-    operator fun invoke(source: List<String>) = newsRepository.getNews(source)
+    operator fun invoke(source: List<String>, domain: List<String>) = newsRepository.getNews(source, domain)
 }

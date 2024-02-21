@@ -14,25 +14,29 @@ class NewsRepositoryImpl(
     private val newsApi: NewsApi,
     private val newsDao: NewsDao
 ): NewsRepository {
-    override fun getNews(source: List<String>): Flow<PagingData<Article>> {
+    override fun getNews(source: List<String>, domain: List<String>): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
                 NewsPagingSource(
                     newsApi,
-                    source.joinToString(","))
+                    source.joinToString(","),
+                    domain.joinToString(",")
+                )
             }
         ).flow
     }
 
-    override fun searchNews(query: String, source: List<String>): Flow<PagingData<Article>> {
+    override fun searchNews(query: String, source: List<String>, domain: List<String>): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
                 SearchNewsPagingSource(
                     newsApi,
                     query,
-                    source.joinToString(","))
+                    source.joinToString(","),
+                    domain.joinToString(",")
+                )
             }
         ).flow
     }

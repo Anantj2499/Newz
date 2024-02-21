@@ -7,6 +7,7 @@ import com.example.newz.domain.model.Article
 class NewsPagingSource(
     private val newsApi: NewsApi,
     private val sources: String,
+    private val domains: String
 ): PagingSource<Int, Article>() {
 
     private var totalNewsCount = 0
@@ -21,7 +22,7 @@ class NewsPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         val page = params.key ?: 1
         return try {
-            val response = newsApi.getNews(page, sources)
+            val response = newsApi.getNews(page, sources, domains)
             totalNewsCount+=response.articles.size
             val articles = response.articles.distinctBy { it.title }
 

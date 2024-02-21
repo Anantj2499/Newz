@@ -7,7 +7,8 @@ import com.example.newz.domain.model.Article
 class SearchNewsPagingSource(
     private val newsApi: NewsApi,
     private val searchQuery: String,
-    private val sources: String
+    private val sources: String,
+    private val domains: String
 ):PagingSource<Int, Article>() {
 
     override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
@@ -22,7 +23,7 @@ class SearchNewsPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         val page = params.key ?: 1
         return try {
-            val response = newsApi.searchNews(searchQuery, page, sources)
+            val response = newsApi.searchNews(searchQuery, page, sources, domains)
             totalNewsCount+=response.articles.size
             val articles = response.articles.distinctBy { it.title }
 

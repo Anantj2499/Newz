@@ -5,6 +5,6 @@ import com.example.newz.domain.repository.NewsRepository
 class SearchNews(
     private val newsRepository: NewsRepository
 ) {
-    operator fun invoke(searchQuery: String,source: List<String>)
-    = newsRepository.searchNews(searchQuery,source)
+    operator fun invoke(searchQuery: String,source: List<String>, domain: List<String>)
+    = newsRepository.searchNews(searchQuery,source, domain)
 }
