@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.newz.data.local.NewsDao
 import com.example.newz.data.local.NewsDatabase
 import com.example.newz.data.local.NewsTypeConvertor
+import com.example.newz.data.local.SearchHistoryDao
 import com.example.newz.data.manager.LocalUserManagerImpl
 import com.example.newz.data.remote.NewsApi
 import com.example.newz.data.repository.NewsRepositoryImpl
@@ -14,12 +15,16 @@ import com.example.newz.domain.usecases.app_entry.AppEntryUseCases
 import com.example.newz.domain.usecases.app_entry.ReadAppEntry
 import com.example.newz.domain.usecases.app_entry.SaveAppEntry
 import com.example.newz.domain.usecases.news.DeleteArticles
+import com.example.newz.domain.usecases.news.DeleteSearchHistory
 import com.example.newz.domain.usecases.news.GetNews
 import com.example.newz.domain.usecases.news.NewsUseCases
 import com.example.newz.domain.usecases.news.SearchNews
 import com.example.newz.domain.usecases.news.SelectArticle
 import com.example.newz.domain.usecases.news.SelectArticles
+import com.example.newz.domain.usecases.news.SelectSearch
+import com.example.newz.domain.usecases.news.SelectSearchHistory
 import com.example.newz.domain.usecases.news.UpsertArticles
+import com.example.newz.domain.usecases.news.UpsertSearchHistory
 import com.example.newz.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -65,8 +70,9 @@ object AppModule {
     @Singleton
     fun provideNewsRepository(
         newsApi: NewsApi,
-        newsDao: NewsDao
-    ):NewsRepository = NewsRepositoryImpl(newsApi, newsDao)
+        newsDao: NewsDao,
+        searchHistoryDao: SearchHistoryDao
+    ):NewsRepository = NewsRepositoryImpl(newsApi, newsDao, searchHistoryDao)
     @Provides
     @Singleton
     fun provideNewsUseCases(
@@ -83,7 +89,11 @@ object AppModule {
         ),
         deleteArticles = DeleteArticles(newsRepository),
         selectArticles = SelectArticles(newsRepository),
-        selectArticle = SelectArticle(newsRepository)
+        selectArticle = SelectArticle(newsRepository),
+        selectSearch = SelectSearch(newsRepository),
+        upsertSearchHistory = UpsertSearchHistory(newsRepository),
+        deleteSearchHistory = DeleteSearchHistory(newsRepository),
+        selectSearchHistory = SelectSearchHistory(newsRepository)
     )
     @Provides
     @Singleton
@@ -103,4 +113,10 @@ object AppModule {
     fun provideNewsDao(
         newsDatabase: NewsDatabase
     ):NewsDao = newsDatabase.newsDao
+
+    @Provides
+    @Singleton
+    fun provideSearchHistoryDao(
+        newsDatabase: NewsDatabase
+    ):SearchHistoryDao = newsDatabase.searchHistoryDao
 }

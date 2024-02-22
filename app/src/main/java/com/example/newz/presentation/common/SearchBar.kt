@@ -22,6 +22,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
@@ -42,6 +44,7 @@ fun SearchBar(
     val interactionSource = remember {
         MutableInteractionSource()
     }
+    val keyboardController= LocalSoftwareKeyboardController.current
     val isClicked = interactionSource.collectIsPressedAsState().value
     LaunchedEffect(key1 = isClicked){
         if (isClicked){
@@ -90,6 +93,7 @@ fun SearchBar(
             keyboardActions = KeyboardActions(
                 onSearch = {
                     onSearch()
+                    keyboardController?.hide()
                 }
             ),
             textStyle = MaterialTheme.typography.bodySmall,

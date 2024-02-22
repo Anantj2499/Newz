@@ -17,7 +17,7 @@ class HomeViewModel @Inject constructor(
     val state: State<HomeState> = _state
     val news = newsUseCases.getNews(
         source = listOf("bbc-news", "cnn", "fox-news", "google-news", "the-hindu", "the-times-of-india", "zee-news" ),
-        domain = listOf("ndtv.com", "hindustantimes.com", "indianexpress.com", "indiatoday.in", "indiatvnews.com", "moneycontrol.com", "screenrant.com", "india.com","abplive.com")
+        domain = listOf("ndtv.com", "hindustantimes.com", "indianexpress.com", "indiatoday.in", "indiatvnews.com", "moneycontrol.com", "screenrant.com", "india.com","abplive.com", "googleblog.in", "businessinsider.in", "in.ign.in")
     ).cachedIn(viewModelScope)
     private fun updateScrollValue(value: Int) {
         _state.value = _state.value.copy(scrollValue = value)
