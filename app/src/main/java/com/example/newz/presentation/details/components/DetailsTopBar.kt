@@ -25,6 +25,7 @@ fun DetailsTopBar(
     onShare: () -> Unit,
     onBookmark: () -> Unit,
     onOpenInBrowser: () -> Unit,
+    isBookmarked: Boolean
 ) {
     TopAppBar(
         title = { },
@@ -45,7 +46,7 @@ fun DetailsTopBar(
         actions = {
             IconButton(onClick = onBookmark) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_bookmark),
+                    painter = painterResource(id = if (isBookmarked) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark),
                     contentDescription = null
                 )
             }
@@ -73,7 +74,8 @@ fun DetailsTopBarPreview() {
             onBack = {},
             onShare = {},
             onBookmark = {},
-            onOpenInBrowser = {}
+            onOpenInBrowser = {},
+            isBookmarked = false
         )
     }
 }

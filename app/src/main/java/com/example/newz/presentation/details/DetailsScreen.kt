@@ -33,6 +33,7 @@ import com.example.newz.util.UIComponent
 
 @Composable
 fun DetailsScreen(
+    state: DetailsState,
     article: Article,
     event: (DetailsEvent) -> Unit,
     sideEffect: UIComponent?,
@@ -49,6 +50,9 @@ fun DetailsScreen(
                 else->Unit
             }
         }
+    }
+    LaunchedEffect(key1 = article){
+        event(DetailsEvent.CheckBookmark(article))
     }
     Column(
         modifier = Modifier
@@ -73,6 +77,7 @@ fun DetailsScreen(
                 }
             },
             onBookmark = { event(DetailsEvent.UpsertDeleteArticle(article)) },
+            isBookmarked = state.isBookmarked
         )
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
@@ -115,6 +120,7 @@ fun DetailsScreen(
 @Composable
 fun DetailsScreenPreview() {
     DetailsScreen(
+        state = DetailsState(),
         article = Article(
             author = "",
             title = "Coinbase says Apple blocked its last app release on NFTs in Wallet ... - CryptoSaurus",

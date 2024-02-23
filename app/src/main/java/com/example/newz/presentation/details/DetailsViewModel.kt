@@ -1,5 +1,6 @@
 package com.example.newz.presentation.details
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -16,18 +17,30 @@ import javax.inject.Inject
 class DetailsViewModel @Inject constructor(
     private val newsUseCases: NewsUseCases
 ):ViewModel() {
+
+    private val _state = mutableStateOf(DetailsState())
+    val state: State<DetailsState> = _state
     var sideEffect by mutableStateOf<UIComponent?>(null)
         private set
+
+    private fun checkBookmarkStatus(article: Article) {
+        viewModelScope.launch {
+            val savedArticle = newsUseCases.selectArticle(article.url)
+            _state.value = _state.value.copy(isBookmarked = savedArticle != null)
+        }
+    }
 
     private suspend fun upsertArticle(article: Article) {
         newsUseCases.upsertArticles(article)
         sideEffect = UIComponent.Toast("Article saved successfully")
+        _state.value = _state.value.copy(isBookmarked = true)
     }
 
 
     private suspend fun deleteArticle(article: Article) {
         newsUseCases.deleteArticles(article)
         sideEffect = UIComponent.Toast("Article removed successfully")
+        _state.value = _state.value.copy(isBookmarked = false)
     }
 
     fun onEvent(event: DetailsEvent) {
@@ -45,6 +58,10 @@ class DetailsViewModel @Inject constructor(
 
             is DetailsEvent.RemoveSideEffect -> {
                 sideEffect = null
+            }
+
+            is DetailsEvent.CheckBookmark -> {
+                checkBookmarkStatus(event.article)
             }
         }
     }
