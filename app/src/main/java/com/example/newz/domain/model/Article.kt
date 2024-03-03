@@ -4,6 +4,11 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 @Parcelize
 @Entity
@@ -16,4 +21,11 @@ data class Article(
     val title: String,
     @PrimaryKey val url: String,
     val urlToImage: String
-): Parcelable
+): Parcelable{
+    fun getLocalizedDateTime(): String {
+        val instant = Instant.parse(publishedAt)
+        val localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+        val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+        return localDateTime.format(formatter)
+    }
+}

@@ -100,13 +100,13 @@ fun DetailsScreen(
                 Spacer(modifier =Modifier.height(24.dp))
                 Text(
                     text =article.title,
-                    style = MaterialTheme.typography.displaySmall,
+                    style = MaterialTheme.typography.titleLarge,
                     color = colorResource(
                         id = R.color.text_title
                     )
                 )
-                Text(text =article.content,
-                    style = MaterialTheme.typography.bodyMedium,
+                Text(text =article.description,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = colorResource(
                         id = R.color.body
                     )

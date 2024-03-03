@@ -74,7 +74,7 @@ fun ArticleCard(
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = article.publishedAt,
+                    text = article.getLocalizedDateTime(),
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                     color = colorResource(id = R.color.body),
                 )
