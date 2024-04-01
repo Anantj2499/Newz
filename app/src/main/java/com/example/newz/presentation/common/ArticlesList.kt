@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -123,6 +124,7 @@ fun ArticlesList(
                 state = pullToRefreshState,
                 modifier = Modifier
                     .align(Alignment.TopCenter),
+                containerColor = Color.Transparent
             )
         }
     }
