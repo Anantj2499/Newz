@@ -25,7 +25,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.newz.R
 import com.example.newz.domain.model.Article
 import com.example.newz.presentation.common.ArticlesList
@@ -35,12 +35,12 @@ import kotlinx.coroutines.delay
 @Composable
 fun HomeScreen(
     state: HomeState,
-    articles: LazyPagingItems<Article>,
     navigateToSearch: () -> Unit,
     navigateToDetails:(Article)->Unit,
     event:(HomeEvent)->Unit
 ){
-    val titles by remember {
+    val articles = state.articles!!.collectAsLazyPagingItems()
+    val titles by remember(state.articles) {
         derivedStateOf {
             if (articles.itemCount>10){
                 articles.itemSnapshotList.items
@@ -104,17 +104,26 @@ fun HomeScreen(
             modifier = Modifier
                 .padding(horizontal = 24.dp)
                 .fillMaxWidth()
-                .horizontalScroll(scrollState,enabled = false),
+                .horizontalScroll(scrollState, enabled = false),
             fontSize = 12.sp,
             color = colorResource(id = R.color.placeholder)
         )
         Spacer(modifier = Modifier.height(24.dp))
+//        ArticlesList(
+//            modifier = Modifier
+//                .padding(horizontal = 24.dp),
+//            articles = articles,
+//            onClick = {
+//            navigateToDetails(it)
+//        })
         ArticlesList(
-            modifier = Modifier
-                .padding(horizontal = 24.dp),
             articles = articles,
+            onRefresh = {
+                   event(HomeEvent.LoadNews)
+            },
             onClick = {
-            navigateToDetails(it)
-        })
+                navigateToDetails(it)
+            }
+        )
     }
 }
