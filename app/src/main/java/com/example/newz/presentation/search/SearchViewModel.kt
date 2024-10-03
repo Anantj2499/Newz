@@ -42,6 +42,8 @@ class SearchViewModel @Inject constructor(
                     upsertSearchHistory(searchHistory)
                 }
             }
+
+            else -> {}
         }
     }
     private suspend fun deleteSearchHistory(searchHistory: SearchHistory) {

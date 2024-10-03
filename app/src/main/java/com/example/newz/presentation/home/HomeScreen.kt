@@ -124,6 +124,6 @@ fun HomeScreen(
             onClick = {
                 navigateToDetails(it)
             }
-        )
+            )
     }
 }

@@ -27,7 +27,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.newz.R
+import com.example.newz.R.color.shimmer
 import com.example.newz.ui.theme.NewzTheme
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
@@ -43,7 +43,7 @@ fun Modifier.shimmerEffect() = composed {
             repeatMode = RepeatMode.Reverse
         ), label = ""
     ).value
-    background(color = colorResource(id = R.color.shimmer).copy(alpha))
+    background(color = colorResource(id = shimmer).copy(alpha))
 }
 @Composable
 fun ArticleCardShimmerEffect(
